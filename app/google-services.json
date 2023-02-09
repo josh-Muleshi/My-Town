@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "784126689037",
+    "project_id": "my-town-527ad",
+    "storage_bucket": "my-town-527ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784126689037:android:ce41b372c13a735471fa44",
+        "android_client_info": {
+          "package_name": "cd.wayupdotdev.mytown"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784126689037-9pfhl4foigv145idg2f4fhtvdsh6qvl3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cd.wayupdotdev.mytown",
+            "certificate_hash": "8a5f9d555790ce0beb8ec9904f39c240b47f9969"
+          }
+        },
+        {
+          "client_id": "784126689037-osgak561n3pf3rjurfid713v1iqir8fn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbzTTzXKLdp5Bs2dCSlstcCXur7dSI5ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784126689037-osgak561n3pf3rjurfid713v1iqir8fn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
