@@ -36,22 +36,18 @@ fun SplashScreen(navigator: DestinationsNavigator) {
 
 @Composable
 fun SplashScreenContent(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth().padding(top = 200.dp),
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_logo_town),
+                painter = painterResource(id = R.drawable.ic_town),
                 contentDescription = "logo",
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(200.dp).padding(start = 12.dp)
             )
-
-            Spacer(modifier = Modifier.padding(4.dp))
-
-            Text(text = stringResource(id = R.string.app_name))
         }
 
         Image(
