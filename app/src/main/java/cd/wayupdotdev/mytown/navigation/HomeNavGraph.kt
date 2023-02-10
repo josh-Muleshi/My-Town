@@ -10,7 +10,6 @@ private val destinationsList = listOf(
     DetailScreenDestination,
     AboutScreenDestination,
     PostScreenDestination,
-    AuthScreenDestination,
     SettingScreenDestination,
     ProfileScreenDestination
 )

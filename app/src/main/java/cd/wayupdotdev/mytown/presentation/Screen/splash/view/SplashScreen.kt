@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cd.wayupdotdev.mytown.destinations.AuthScreenDestination
 import cd.wayupdotdev.mytown.destinations.MainScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -26,7 +27,7 @@ fun SplashScreen(navigator: DestinationsNavigator) {
 
     LaunchedEffect(key1 = true){
         delay(5000)
-        navigator.navigate(MainScreenDestination)
+        navigator.navigate(AuthScreenDestination)
     }
 
     Scaffold(modifier = Modifier.background(Color.White)) { contentPadding ->
