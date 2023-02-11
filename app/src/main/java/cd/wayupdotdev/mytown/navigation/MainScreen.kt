@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -30,7 +31,7 @@ fun MainScreen() {
     Scaffold(
         scaffoldState = scaffoldState,
         bottomBar = {
-            BottomNavigation(backgroundColor = MaterialTheme.colors.surface) {
+            BottomNavigation(backgroundColor = MaterialTheme.colors.surface, elevation = 0.dp) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
 
