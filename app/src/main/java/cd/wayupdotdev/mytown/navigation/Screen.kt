@@ -16,6 +16,6 @@ sealed class Screen(val destination: Direction, val route: String = destination.
 }
 
 fun getBottomNavItems(): List<Screen> {
-    return listOf(Screen.Home, Screen.Post, Screen.Profile)
+    return listOf(Screen.Home, Screen.Profile)
 }
 
