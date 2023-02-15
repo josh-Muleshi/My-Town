@@ -23,7 +23,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun AppBarScreen(navigator: DestinationsNavigator, ScreenName: String) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.surface,
-        elevation = 2.dp
+        elevation = 0.dp
     ) {
         Row(
             modifier = Modifier

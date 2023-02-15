@@ -3,6 +3,7 @@ package cd.wayupdotdev.mytown.presentation.Screen.about.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -31,63 +32,81 @@ fun AboutScreen(navigator: DestinationsNavigator) {
             AppBarScreen(navigator, ScreenName = "About us")
         }
     ) { contentPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(contentPadding)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.padding(16.dp))
+            item {
+                Spacer(modifier = Modifier.padding(16.dp))
+            }
 
-            Image(
-                painter = painterResource(id = R.drawable.logo_two),
-                contentDescription = "",
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(CircleShape)
-                    .border(0.dp, MaterialTheme.colors.surface, CircleShape),
-                contentScale = ContentScale.Crop,
-            )
+            item {
+                Image(
+                    painter = painterResource(id = R.drawable.logo_two),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .border(0.dp, MaterialTheme.colors.surface, CircleShape),
+                    contentScale = ContentScale.Crop,
+                )
+            }
 
-            Spacer(modifier = Modifier.padding(8.dp))
+            item {
+                Spacer(modifier = Modifier.padding(8.dp))
+            }
 
-            Text(
-                text = stringResource(id = R.string.app_name),
-                color = Color.Black,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
+            item {
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
-            Text(
-                text = stringResource(id = R.string.version),
-                modifier = Modifier.padding(4.dp),
-                color = Color.Black
-            )
+            item {
+                Text(
+                    text = stringResource(id = R.string.version),
+                    modifier = Modifier.padding(4.dp),
+                    color = Color.Black
+                )
+            }
 
-            Spacer(modifier = Modifier.padding(14.dp))
+            item {
+                Spacer(modifier = Modifier.padding(14.dp))
+            }
 
-            Text(
-                text = stringResource(id = R.string.developed),
-                modifier = Modifier.padding(4.dp),
-                color = Color.Black,
-                fontWeight = FontWeight.Medium,
-                fontSize = 12.sp,
-            )
+            item {
+                Text(
+                    text = stringResource(id = R.string.developed),
+                    modifier = Modifier.padding(4.dp),
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp,
+                )
+            }
 
-            Text(
-                text = stringResource(id = R.string.developer),
-                modifier = Modifier.padding(4.dp),
-                color = Color.Black,
-                fontSize = 20.sp,
-            )
+            item {
+                Text(
+                    text = stringResource(id = R.string.developer),
+                    modifier = Modifier.padding(4.dp),
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                )
+            }
 
-            Text(
-                text = stringResource(id = R.string.email),
-                modifier = Modifier.padding(4.dp),
-                color = Color.Black,
-                fontStyle = FontStyle.Italic
-            )
+            item {
+                Text(
+                    text = stringResource(id = R.string.email),
+                    modifier = Modifier.padding(4.dp),
+                    color = Color.Black,
+                    fontStyle = FontStyle.Italic
+                )
+            }
         }
     }
 }
