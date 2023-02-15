@@ -6,12 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -42,12 +41,13 @@ fun AboutScreen(navigator: DestinationsNavigator) {
             Spacer(modifier = Modifier.padding(16.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.logo_town),
+                painter = painterResource(id = R.drawable.logo_two),
                 contentDescription = "",
                 modifier = Modifier
                     .size(100.dp)
                     .clip(CircleShape)
-                    .border(0.dp, MaterialTheme.colors.surface, CircleShape)
+                    .border(0.dp, MaterialTheme.colors.surface, CircleShape),
+                contentScale = ContentScale.Crop,
             )
 
             Spacer(modifier = Modifier.padding(8.dp))
@@ -65,7 +65,7 @@ fun AboutScreen(navigator: DestinationsNavigator) {
                 color = Color.Black
             )
 
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(14.dp))
 
             Text(
                 text = stringResource(id = R.string.developed),
