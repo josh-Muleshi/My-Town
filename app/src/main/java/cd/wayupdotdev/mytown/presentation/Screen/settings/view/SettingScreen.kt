@@ -1,5 +1,6 @@
 package cd.wayupdotdev.mytown.presentation.Screen.settings.view
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -34,11 +35,16 @@ fun SettingScreen(navigator: DestinationsNavigator) {
     ) { contentPadding ->
         Box(modifier = Modifier.padding(contentPadding)) {
 
-            SettingItem() { item ->
+            SettingItem { item ->
                 when (item) {
-                    0 -> {}
+                    0 -> {
+                        Toast.makeText(context, "Seulement le français pour l'instant", Toast.LENGTH_LONG).show()
+                    }
                     1 -> { navigator.navigate(AboutScreenDestination) }
-                    2 -> { /*context.openUrl("https://www.weboxconnexion.com")*/ }
+                    2 -> {
+                        Toast.makeText(context, "indisponible pour l'instant", Toast.LENGTH_LONG).show()
+                        /*context.openUrl("https://www.weboxconnexion.com")*/
+                    }
                 }
             }
         }
@@ -47,7 +53,7 @@ fun SettingScreen(navigator: DestinationsNavigator) {
 
 @Composable
 fun SettingItem(selectedItem: (Int) -> Unit) {
-    val names: List<String> = listOf("Language", "About", "Help")
+    val names: List<String> = listOf("Langue", "Apropos de nous", "Aide")
     LazyColumn {
         itemsIndexed(names) { index, name ->
             Row(
