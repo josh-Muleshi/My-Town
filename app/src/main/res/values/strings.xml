@@ -4,4 +4,5 @@
     <string name="developed">josh Muleshi</string>
     <string name="developer">Josh Muleshi</string>
     <string name="email">jmuleshi2@gmail.com</string>
+    <string name="title_activity_add_post">AddPostActivity</string>
 </resources>
