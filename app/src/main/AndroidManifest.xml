@@ -5,22 +5,28 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="https" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.APP_BROWSER" />
+
             <data android:scheme="https" />
         </intent>
     </queries>
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <uses-feature android:name="android.hardware.camera.any"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"/>
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:name=".app.App"
@@ -32,6 +38,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTown"
         tools:targetApi="31">
+        <activity
+            android:name=".AddPostActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_post"
+            android:theme="@style/Theme.MyTown" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
