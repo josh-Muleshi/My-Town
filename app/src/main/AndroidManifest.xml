@@ -42,6 +42,7 @@
             android:name=".AddPostActivity"
             android:exported="false"
             android:label="@string/title_activity_add_post"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyTown" />
         <activity
             android:name=".MainActivity"

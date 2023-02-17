@@ -18,7 +18,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import cd.wayupdotdev.mytown.AddPostActivity
 import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
-import cd.wayupdotdev.mytown.destinations.PostScreenDestination
 import cd.wayupdotdev.mytown.ui.theme.Purple200
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
@@ -40,10 +39,6 @@ fun MainScreen() {
           FloatingActionButton(
               shape = RoundedCornerShape(10.dp),
               onClick = {
-//                  navController.navigate(
-//                      PostScreenDestination
-//                  )
-
                   val intent = Intent(context, AddPostActivity::class.java)
                   context.startActivity(intent)
               },
