@@ -1,9 +1,6 @@
 package cd.wayupdotdev.mytown.navigation
 
-import cd.wayupdotdev.mytown.destinations.AddPostScreenDestination
-import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
-import cd.wayupdotdev.mytown.destinations.MainScreenDestination
-import cd.wayupdotdev.mytown.destinations.PostScreenDestination
+import cd.wayupdotdev.mytown.destinations.*
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.ramcosta.composedestinations.spec.Route
@@ -11,7 +8,8 @@ import com.ramcosta.composedestinations.spec.Route
 private val destinationsList = listOf(
     MainScreenDestination,
     PostScreenDestination,
-    AddPostScreenDestination
+    AddPostScreenDestination,
+    PostMakeScreenDestination
 )
 
 object AddPostNavGraph : NavGraphSpec {

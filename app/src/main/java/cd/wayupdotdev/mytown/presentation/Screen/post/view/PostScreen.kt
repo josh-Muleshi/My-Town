@@ -1,8 +1,11 @@
 package cd.wayupdotdev.mytown.presentation.Screen.post.view
 
 import android.Manifest
+import android.net.Uri
 import android.os.Build
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,8 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdotdev.mytown.destinations.MainScreenDestination
+import cd.wayupdotdev.mytown.destinations.PostMakeScreenDestination
+import cd.wayupdotdev.mytown.destinations.PostScreenDestination
+import cd.wayupdotdev.mytown.presentation.Screen.post.business.PostState
 import cd.wayupdotdev.mytown.presentation.Screen.post.business.PostViewModel
 import cd.wayupdotdev.mytown.ui.theme.Black_camera
 import cd.wayupdotdev.mytown.ui.theme.Black_ic
@@ -40,6 +45,10 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination
 @Composable
 fun PostScreen(navigator: DestinationsNavigator ,viewModel: PostViewModel = hiltViewModel()) {
+
+    val data by viewModel.data.collectAsState()
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
     val permissions = if (Build.VERSION.SDK_INT <= 28){
         listOf(
             Manifest.permission.CAMERA,
@@ -63,6 +72,13 @@ fun PostScreen(navigator: DestinationsNavigator ,viewModel: PostViewModel = hilt
     val screeHeight = configuration.screenHeightDp.dp
     var previewView: PreviewView
 
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        imageUri = uri
+    }
+
+    if (imageUri != null) navigator.navigate(PostMakeScreenDestination(uri = imageUri!!))
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -108,7 +124,7 @@ fun PostScreen(navigator: DestinationsNavigator ,viewModel: PostViewModel = hilt
                             .size(55.dp)
                             .background(Black_camera),
                         onClick = {
-
+                            launcher.launch("image/*")
                         }
                     ) {
                         Icon(
@@ -134,14 +150,9 @@ fun PostScreen(navigator: DestinationsNavigator ,viewModel: PostViewModel = hilt
                             .size(60.dp)
                             .background(Purple200),
                         onClick = {
-                            if (permissionState.allPermissionsGranted) {
-                                viewModel.captureAndSave(context)
-                            } else {
-                                Toast.makeText(
-                                    context,
-                                    "Please accept permission in app settings",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                            viewModel.captureAndSave(context)
+                            if (data is PostState.Success) {
+                                navigator.navigate(PostMakeScreenDestination(uri = (data as PostState.Success).uri))
                             }
                         }
                     ){}

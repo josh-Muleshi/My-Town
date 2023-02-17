@@ -2,6 +2,7 @@ package cd.wayupdotdev.mytown.data.repository
 
 import android.content.ContentValues
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.widget.Toast
@@ -23,6 +24,8 @@ class CustomCameraRepoImpl @Inject constructor(
     private val imageCapture: ImageCapture
 ): CustomCameraRepo {
 
+    private lateinit var imageUri: Uri
+    override fun getImageUri(): Uri = imageUri
 
     override suspend fun captureAndSaveImage(
         context: Context) {
@@ -57,9 +60,10 @@ class CustomCameraRepoImpl @Inject constructor(
             ContextCompat.getMainExecutor(context),
             object : ImageCapture.OnImageSavedCallback{
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    imageUri = outputFileResults.savedUri!!
                     Toast.makeText(
                         context,
-                        "Saved image ${outputFileResults.savedUri!!}",
+                        "Saved image $imageUri",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -75,9 +79,6 @@ class CustomCameraRepoImpl @Inject constructor(
         )
 
     }
-
-
-
 
     override suspend fun showCameraPreview(
         previewView: PreviewView,

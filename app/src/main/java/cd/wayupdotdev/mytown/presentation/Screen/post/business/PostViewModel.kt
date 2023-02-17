@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cd.wayupdotdev.mytown.domain.repository.CustomCameraRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +17,23 @@ import javax.inject.Inject
 class PostViewModel @Inject constructor(
     private val repo: CustomCameraRepo
 ): ViewModel() {
+
+    private val _data = MutableStateFlow<PostState>(PostState.Uninitialized)
+    val data: StateFlow<PostState>
+        get() = _data
+
+    init {
+        getImageUri()
+    }
+    private fun getImageUri() = viewModelScope.launch {
+        _data.emit(PostState.Loading)
+        try {
+            _data.emit(PostState.Success(repo.getImageUri()))
+        } catch (t: Throwable) {
+            _data.emit(PostState.Error(t.message.toString()))
+        }
+
+    }
 
     fun showCameraPreview(
         previewView: PreviewView,
