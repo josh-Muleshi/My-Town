@@ -28,7 +28,9 @@ class CustomCameraRepoImpl @Inject constructor(
     override fun getImageUri(): Uri = imageUri
 
     override suspend fun captureAndSaveImage(
-        context: Context) {
+        context: Context,
+        onCapture : (Uri) -> Unit
+    ) {
 
         //for file name
         val name = SimpleDateFormat(
@@ -61,6 +63,7 @@ class CustomCameraRepoImpl @Inject constructor(
             object : ImageCapture.OnImageSavedCallback{
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     imageUri = outputFileResults.savedUri!!
+                    onCapture(imageUri)
                     Toast.makeText(
                         context,
                         "Saved image $imageUri",
@@ -77,14 +80,12 @@ class CustomCameraRepoImpl @Inject constructor(
                 }
             }
         )
-
     }
 
     override suspend fun showCameraPreview(
         previewView: PreviewView,
         lifecycleOwner: LifecycleOwner
     ) {
-
         preview.setSurfaceProvider(previewView.surfaceProvider)
         try {
             cameraProvider.unbindAll()

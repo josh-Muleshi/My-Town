@@ -1,6 +1,7 @@
 package cd.wayupdotdev.mytown.presentation.Screen.post.business
 
 import android.content.Context
+import android.util.Log
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -22,18 +23,19 @@ class PostViewModel @Inject constructor(
     val data: StateFlow<PostState>
         get() = _data
 
-    init {
-        getImageUri()
-    }
-    private fun getImageUri() = viewModelScope.launch {
-        _data.emit(PostState.Loading)
-        try {
-            _data.emit(PostState.Success(repo.getImageUri()))
-        } catch (t: Throwable) {
-            _data.emit(PostState.Error(t.message.toString()))
-        }
-
-    }
+//    init {
+//        getImageUri()
+//    }
+//    private fun getImageUri() = viewModelScope.launch {
+//        _data.emit(PostState.Loading)
+//        try {
+//            _data.emit(PostState.Success(repo.getImageUri()))
+//            Log.e("url", repo.getImageUri().toString())
+//        } catch (t: Throwable) {
+//            _data.emit(PostState.Error(t.message.toString()))
+//        }
+//
+//    }
 
     fun showCameraPreview(
         previewView: PreviewView,
@@ -49,7 +51,11 @@ class PostViewModel @Inject constructor(
 
     fun captureAndSave(context: Context) {
         viewModelScope.launch {
-            repo.captureAndSaveImage(context)
+            repo.captureAndSaveImage(context) {
+               launch {
+                   _data.emit(PostState.Success(it))
+               }
+            }
         }
     }
 }

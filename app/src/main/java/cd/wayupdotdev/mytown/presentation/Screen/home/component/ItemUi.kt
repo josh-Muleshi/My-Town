@@ -5,13 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import cd.wayupdotdev.mytown.R
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -23,6 +20,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -59,7 +57,7 @@ fun ItemUi(modifier: Modifier = Modifier) {
 //        )
 
             Image(
-                painter = painterResource(id = cd.wayupdotdev.mytown.R.drawable.logo_two),
+                painter = painterResource(id = R.drawable.test),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -82,8 +80,7 @@ fun BottomShadow(
 ) {
     Box(
         modifier = Modifier
-            .height(220.dp)
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
@@ -95,37 +92,44 @@ fun BottomShadow(
             ),
         contentAlignment = Alignment.BottomCenter
     ) {
-        Icon(
-            imageVector = Icons.Filled.FavoriteBorder,
-            contentDescription = "favorite",
-            tint = Color.White,
+        IconButton(
             modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(8.dp)
-                .size(30.dp)
-        )
+                .align(Alignment.TopStart),
+            onClick = { onAddToFavorite(/*post*/) }
+        ) {
+            Icon(
+                imageVector = Icons.Filled.FavoriteBorder,
+                contentDescription = "favorite",
+                tint = Color.White,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(30.dp)
+            )
+        }
 
         Row(
             modifier = Modifier
-                .clickable { onAddToFavorite(/*post*/) }
                 .fillMaxWidth(),
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = comment,
-                style = MaterialTheme.typography.body2,
-                textAlign = TextAlign.Justify,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-                color = Color.White,
-                modifier = Modifier.padding(8.dp)
-            )
+            Box(modifier = Modifier
+                .padding(8.dp)
+                .size(150.dp), contentAlignment = Alignment.BottomCenter) {
+                Text(
+                    text = comment,
+                    style = MaterialTheme.typography.body2,
+                    fontWeight = FontWeight.Medium,
+                    textAlign = TextAlign.Start,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White,
+                )
+            }
 
             Box(
                 modifier = Modifier
-                    .width(300.dp)
-                    .padding()
+                    .padding(8.dp)
                     .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
                     .border(
                         width = 1.dp,
@@ -136,12 +140,19 @@ fun BottomShadow(
                     .padding(8.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "commentaire",
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
+                Row {
+                    Text(
+                        text = "Commentaire",
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.White
+                    )
+                    
+                    Spacer(modifier = Modifier.padding(2.dp))
+                    
+                    Icon(painter = painterResource(id = R.drawable.ic_arrow_righ), contentDescription = null, tint = Color.White)
+                }
             }
         }
     }
