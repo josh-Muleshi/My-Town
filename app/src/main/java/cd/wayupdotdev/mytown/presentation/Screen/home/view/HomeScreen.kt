@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import cd.wayupdotdev.mytown.destinations.SettingScreenDestination
+import cd.wayupdotdev.mytown.presentation.Screen.home.component.ItemUi
 import cd.wayupdotdev.mytown.presentation.Screen.home.component.TopPageBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -33,5 +34,6 @@ fun HomeScreen(navigator: DestinationsNavigator) {
         }
     ) { contentPadding ->
         Box(modifier = Modifier.padding(contentPadding))
+        ItemUi()
     }
 }
