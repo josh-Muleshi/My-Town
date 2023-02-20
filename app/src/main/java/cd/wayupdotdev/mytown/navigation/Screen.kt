@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
 import cd.wayupdotdev.mytown.destinations.PostScreenDestination
 import cd.wayupdotdev.mytown.destinations.ProfileScreenDestination
-import cd.wayupdotdev.mytown.presentation.Screen.post.view.PostScreen
 import com.ramcosta.composedestinations.spec.Direction
 
 sealed class Screen(val destination: Direction, val route: String = destination.route, val label: String = "", val icon: ImageVector? = null){
