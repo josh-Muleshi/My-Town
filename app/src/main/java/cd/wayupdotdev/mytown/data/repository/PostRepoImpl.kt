@@ -23,12 +23,12 @@ class PostRepoImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
     private val storage: FirebaseStorage
-): PostRepo {
+) {
     private val currentUser by lazy {
         firebaseAuth.currentUser
     }
 
-    override fun getAll() = callbackFlow {
+   fun getAll() = callbackFlow {
         firestore.collection("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}")
             .orderBy(Post::createdAt.name, Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
@@ -46,8 +46,7 @@ class PostRepoImpl @Inject constructor(
     }.catch {
         throw it
     }.flowOn(Dispatchers.IO)
-
-    override fun getPostByUid(uidPost: String) = callbackFlow {
+    fun getPostByUid(uidPost: String) = callbackFlow {
         firestore.document("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}/$uidPost")
             .addSnapshotListener { value, error ->
                 if (error != null && value == null) {
@@ -65,7 +64,7 @@ class PostRepoImpl @Inject constructor(
         throw it
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun add(title: String, description: String, date: String, uri: Uri) {
+    suspend fun add(title: String, description: String, date: String, uri: Uri) {
         val fileRef = storage.reference.child("images/${title.lowercase(Locale.ROOT)}")
         fileRef.putFile(uri).await()
         val imageUrl = fileRef.downloadUrl.await().toString()
@@ -85,7 +84,7 @@ class PostRepoImpl @Inject constructor(
         doc.set(post).await()
     }
 
-    override suspend fun delete(contactUid: String) {
+    suspend fun delete(contactUid: String) {
         firestore.document("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}/${contactUid}").delete().await()
     }
 }

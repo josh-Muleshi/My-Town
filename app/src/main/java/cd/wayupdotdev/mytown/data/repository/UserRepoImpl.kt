@@ -16,13 +16,13 @@ import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
 
-class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestore: FirebaseFirestore): UserRepo {
+class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestore: FirebaseFirestore) {
 
     private val currentUser by lazy {
         firebaseAuth.currentUser
     }
 
-    override suspend fun signInWithGoogle(idToken: String): CustomFirebaseUser {
+     suspend fun signInWithGoogle(idToken: String): CustomFirebaseUser {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
 
         try {
@@ -40,7 +40,7 @@ class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, p
         }
     }
 
-    override fun getCurrentUser() = callbackFlow {
+     fun getCurrentUser() = callbackFlow {
         firestore.document("${FireBaseConstants.users}/${currentUser?.uid.toString()}")
             .addSnapshotListener { value, error ->
             if (error != null && value == null) {

@@ -97,6 +97,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
     implementation "com.google.accompanist:accompanist-permissions:0.28.0"
     implementation "com.google.accompanist:accompanist-insets:0.28.0"

@@ -1,30 +1,78 @@
-package cd.wayupdotdev.mytown.presentation.screen.auth
+package cd.wayupdotdev.mytown.presentation.screen.auth.view
 
+import android.app.Activity
+import android.util.Log
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import cd.wayupdotdev.mytown.utils.Constants
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdotdev.mytown.R
-import cd.wayupdotdev.mytown.destinations.MainScreenDestination
+import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
+import cd.wayupdotdev.mytown.presentation.screen.auth.business.AuthViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.weboxconnexion.houseofchangechurch.ui.screen.auth.business.AuthState
 
 @Destination
 @Composable
-fun AuthScreen(navigator: DestinationsNavigator) {
+fun AuthScreen(navigator: DestinationsNavigator, viewModel: AuthViewModel = hiltViewModel()) {
+
+    val context = LocalContext.current
+    BackHandler(enabled = true) {
+        (context as? Activity)?.finish()
+    }
+
+    val state by viewModel.state.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                viewModel.register(account.idToken!!)
+                Log.d("Login", "Launched")
+            } catch (e: ApiException) {
+                Log.e("LoginScreen", "Login with google failed e : ${e.message}")
+            }
+        }
+    )
+
+    LaunchedEffect(state) {
+        when (state) {
+            is AuthState.Success -> {
+                navigator.navigate(HomeScreenDestination)
+            }
+            is AuthState.Error -> {
+                snackbarHostState.showSnackbar((state as AuthState.Error).errorMessage)
+            }
+            else -> {}
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.img_splash),
@@ -73,7 +121,12 @@ fun AuthScreen(navigator: DestinationsNavigator) {
             OutlinedButton(
                 border = BorderStroke(1.dp, color = Color.White),
                 onClick = {
-                    navigator.navigate(MainScreenDestination)
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(Constants.Token)
+                        .requestEmail()
+                        .build()
+                    val googleSignInClient = GoogleSignIn.getClient(context, gso)
+                    launcher.launch(googleSignInClient.signInIntent)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
