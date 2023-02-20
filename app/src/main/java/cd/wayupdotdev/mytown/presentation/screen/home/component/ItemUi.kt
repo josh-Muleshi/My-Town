@@ -1,5 +1,6 @@
 package cd.wayupdotdev.mytown.presentation.screen.home.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,8 +34,9 @@ fun ItemUi(modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(16.dp)
             .fillMaxWidth(),
-        elevation = 2.dp,
-        shape = RoundedCornerShape(corner = CornerSize(10.dp))
+        elevation = 0.dp,
+        shape = RoundedCornerShape(corner = CornerSize(10.dp)),
+        border = BorderStroke(0.5.dp, Purple200)
     ) {
         Box(
             modifier = modifier
