@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdotdev.mytown.destinations.AuthScreenDestination
 import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
+import cd.wayupdotdev.mytown.destinations.MainScreenDestination
 import cd.wayupdotdev.mytown.presentation.screen.splash.business.SplashState
 import cd.wayupdotdev.mytown.presentation.screen.splash.business.SplashViewModel
 import com.ramcosta.composedestinations.annotation.Destination
@@ -35,7 +36,7 @@ fun SplashScreen(navigator: DestinationsNavigator, viewModel: SplashViewModel = 
         when(isAuth){
             is SplashState.Success -> {
                 if ((isAuth as SplashState.Success).isAuth) {
-                    navigator.navigate(HomeScreenDestination)
+                    navigator.navigate(MainScreenDestination)
                 } else {
                     navigator.navigate(AuthScreenDestination)
                 }

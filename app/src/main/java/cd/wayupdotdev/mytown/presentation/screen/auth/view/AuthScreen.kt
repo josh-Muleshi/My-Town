@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdotdev.mytown.R
 import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
+import cd.wayupdotdev.mytown.destinations.MainScreenDestination
 import cd.wayupdotdev.mytown.presentation.screen.auth.business.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -64,7 +65,7 @@ fun AuthScreen(navigator: DestinationsNavigator, viewModel: AuthViewModel = hilt
     LaunchedEffect(state) {
         when (state) {
             is AuthState.Success -> {
-                navigator.navigate(HomeScreenDestination)
+                navigator.navigate(MainScreenDestination)
             }
             is AuthState.Error -> {
                 snackbarHostState.showSnackbar((state as AuthState.Error).errorMessage)

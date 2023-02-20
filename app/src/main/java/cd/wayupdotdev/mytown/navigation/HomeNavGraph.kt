@@ -10,7 +10,8 @@ private val destinationsList = listOf(
     DetailScreenDestination,
     AboutScreenDestination,
     SettingScreenDestination,
-    ProfileScreenDestination
+    ProfileScreenDestination,
+    MainScreenDestination
 )
 
 object HomeNavGraph : NavGraphSpec {
