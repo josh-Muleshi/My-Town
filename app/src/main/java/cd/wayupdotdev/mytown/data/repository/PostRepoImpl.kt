@@ -29,7 +29,7 @@ class PostRepoImpl @Inject constructor(
     }
 
    fun getAll() = callbackFlow {
-        firestore.collection("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}")
+        firestore.collection(FireBaseConstants.posts)
             .orderBy(Post::createdAt.name, Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
                 if (error != null && value == null) {
@@ -47,7 +47,7 @@ class PostRepoImpl @Inject constructor(
         throw it
     }.flowOn(Dispatchers.IO)
     fun getPostByUid(uidPost: String) = callbackFlow {
-        firestore.document("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}/$uidPost")
+        firestore.document("${FireBaseConstants.posts}/$uidPost")
             .addSnapshotListener { value, error ->
                 if (error != null && value == null) {
                     close(error)
@@ -64,27 +64,34 @@ class PostRepoImpl @Inject constructor(
         throw it
     }.flowOn(Dispatchers.IO)
 
-    suspend fun add(title: String, description: String, date: String, uri: Uri) {
-        val fileRef = storage.reference.child("images/${title.lowercase(Locale.ROOT)}")
+    suspend fun add(description: String, uri: Uri) {
+        val fileRef = storage.reference.child("images/${getRandomString(12).lowercase(Locale.ROOT)}")
         fileRef.putFile(uri).await()
         val imageUrl = fileRef.downloadUrl.await().toString()
 
-        addPostStore(title, description, date)
+        addPostStore(description, imageUrl)
     }
 
-    private suspend fun addPostStore(title: String, description: String, imageUrl: String){
+    private suspend fun addPostStore(description: String, imageUrl: String){
         val post = Post(
-            uid = title.lowercase(Locale.ROOT),
+            uid = getRandomString(12).lowercase(Locale.ROOT),
             userUid = currentUser?.uid.toString(),
             description = description,
             imageUrl = imageUrl,
             createdAt = Date(System.currentTimeMillis())
         )
-        val doc = firestore.document("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}/${post.uid}")
+        val doc = firestore.document("${FireBaseConstants.posts}/${post.uid}")
         doc.set(post).await()
     }
 
-    suspend fun delete(contactUid: String) {
-        firestore.document("${FireBaseConstants.users}/${FireBaseConstants.publication}/${FireBaseConstants.posts}/${contactUid}").delete().await()
+    private fun getRandomString(length: Int) : String {
+        val charset = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        return (1..length)
+            .map { charset.random() }
+            .joinToString("")
+    }
+
+    suspend fun delete(post: Post) {
+        firestore.document("${FireBaseConstants.posts}/${post.uid}").delete().await()
     }
 }

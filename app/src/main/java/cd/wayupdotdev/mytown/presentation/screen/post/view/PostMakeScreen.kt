@@ -17,14 +17,16 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdotdev.mytown.destinations.MainScreenDestination
+import cd.wayupdotdev.mytown.presentation.screen.post.business.PostViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.skydoves.landscapist.glide.GlideImage
 
 @Destination
 @Composable
-fun PostMakeScreen(navigator: DestinationsNavigator, uri: Uri) {
+fun PostMakeScreen(navigator: DestinationsNavigator, uri: Uri, viewModel: PostViewModel = hiltViewModel()) {
 
     var comment by remember { mutableStateOf("") }
     val configuration = LocalConfiguration.current
@@ -61,10 +63,10 @@ fun PostMakeScreen(navigator: DestinationsNavigator, uri: Uri) {
                         ),
                         shape = RoundedCornerShape(corner = CornerSize(12.dp)),
                         onClick = {
-//                                viewModel.addPost(
-//                                    comment,
-//                                    imageUri
-//                                )
+                                viewModel.addPost(
+                                    comment,
+                                    uri
+                                )
                             navigator.navigate(MainScreenDestination)
                         }
                     ) {
@@ -105,8 +107,8 @@ fun PostMakeScreen(navigator: DestinationsNavigator, uri: Uri) {
                         imageModel = uri,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .width(screenWidth*0.75f)
-                            .height(screeHeight*0.45f)
+                            .width(screenWidth * 0.75f)
+                            .height(screeHeight * 0.45f)
                             .clip(shape = RoundedCornerShape(corner = CornerSize(12.dp)))
 
                     )

@@ -150,7 +150,7 @@ fun PostScreen(navigator: DestinationsNavigator ,viewModel: PostViewModel = hilt
                         onClick = {
                             viewModel.captureAndSave(context)
                             if (data is PostState.Success) {
-                                navigator.navigate(PostMakeScreenDestination(uri = (data as PostState.Success).uri))
+                                //navigator.navigate(PostMakeScreenDestination(uri = (data as PostState.Success).uri))
                             }
                         }
                     ){}
