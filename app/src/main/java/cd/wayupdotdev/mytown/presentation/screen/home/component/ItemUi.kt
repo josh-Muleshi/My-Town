@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -56,11 +57,24 @@ fun DisplayItShow(
             contentPadding = PaddingValues(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
             content = {
                 items(count = posts.size) {
                     ItemUi(post = posts[it], onAddToFavorite = { onAddToFavorite.invoke(it) }, selectedItem = { post ->
                         selectedItem.invoke(post)
                     })
+                }
+                
+                item { 
+                    Spacer(modifier = Modifier.padding(8.dp))
+                    Text(
+                        text = "<--   post end   -->",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.LightGray,
+                        fontStyle = FontStyle.Italic
+                    )
+                    Spacer(modifier = Modifier.padding(22.dp))
                 }
             }
         )
@@ -76,7 +90,7 @@ fun ItemUi(
 ) {
     Card(
         modifier = modifier
-            .padding(16.dp)
+            .padding(8.dp)
             .fillMaxWidth(),
         elevation = 0.dp,
         shape = RoundedCornerShape(corner = CornerSize(10.dp)),
@@ -93,8 +107,7 @@ fun ItemUi(
                 imageModel = post.imageUrl,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .clickable {
                         selectedItem(post)
                     }
@@ -150,7 +163,7 @@ fun BottomShadow(
         ) {
             Box(modifier = Modifier
                 .padding(8.dp)
-                .size(150.dp), contentAlignment = Alignment.BottomCenter) {
+                .size(150.dp), contentAlignment = Alignment.BottomStart) {
                 Text(
                     text = comment,
                     style = MaterialTheme.typography.body2,
