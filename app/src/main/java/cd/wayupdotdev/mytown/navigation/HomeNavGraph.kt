@@ -6,8 +6,8 @@ import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.ramcosta.composedestinations.spec.Route
 
 private val destinationsList = listOf(
-    HomeScreenDestination,
     DetailScreenDestination,
+    HomeScreenDestination,
     AboutScreenDestination,
     SettingScreenDestination,
     ProfileScreenDestination,

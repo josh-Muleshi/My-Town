@@ -1,17 +1,15 @@
 package cd.wayupdotdev.mytown.presentation.screen.home.component
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import cd.wayupdotdev.mytown.R
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,12 +22,58 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cd.wayupdotdev.mytown.data.model.Post
 import cd.wayupdotdev.mytown.ui.theme.Black_camera
 import cd.wayupdotdev.mytown.ui.theme.Black_ic
 import cd.wayupdotdev.mytown.ui.theme.Purple200
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.coroutines.delay
 
 @Composable
-fun ItemUi(modifier: Modifier = Modifier) {
+fun DisplayItShow(
+    posts: ArrayList<Post>,
+    onAddToFavorite: (Post) -> Unit,
+    selectedItem: (Post) -> (Unit)
+) {
+    var refreshing by remember { mutableStateOf(false) }
+
+    LaunchedEffect(refreshing) {
+        if (refreshing) {
+            delay(2000)
+            refreshing = false
+        }
+    }
+
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing = refreshing),
+        onRefresh = {
+            refreshing = true
+        }
+    ) {
+        LazyColumn(
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxSize(),
+            content = {
+                items(count = posts.size) {
+                    ItemUi(post = posts[it], onAddToFavorite = { onAddToFavorite.invoke(it) }, selectedItem = { post ->
+                        selectedItem.invoke(post)
+                    })
+                }
+            }
+        )
+    }
+}
+
+@Composable
+fun ItemUi(
+    modifier: Modifier = Modifier,
+    post: Post,
+    onAddToFavorite: (Post) -> Unit,
+    selectedItem: (Post) -> (Unit)
+) {
     Card(
         modifier = modifier
             .padding(16.dp)
@@ -44,28 +88,20 @@ fun ItemUi(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             contentAlignment = Alignment.BottomCenter
         ) {
-//        GlideImage(
-//            imageModel = post.imageUrl,
-//            contentScale = ContentScale.Crop,
-//            modifier = Modifier
-//                .height(200.dp)
-//                .fillMaxWidth()
-//                .clickable {
-//                    selectedItem(post)
-//                }
-//        )
 
-            Image(
-                painter = painterResource(id = R.drawable.test),
-                contentDescription = "",
+            GlideImage(
+                imageModel = post.imageUrl,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(220.dp)
+                    .height(200.dp)
                     .fillMaxWidth()
+                    .clickable {
+                        selectedItem(post)
+                    }
             )
 
             BottomShadow(
-                comment = "j'ajoute un peu plus de text pour voir ce que cela va donner juste pour le fun",
+                comment = post.description,
                 onAddToFavorite = {}
             )
         }

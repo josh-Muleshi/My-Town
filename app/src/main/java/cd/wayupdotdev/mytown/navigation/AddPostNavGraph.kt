@@ -1,6 +1,9 @@
 package cd.wayupdotdev.mytown.navigation
 
-import cd.wayupdotdev.mytown.destinations.*
+import cd.wayupdotdev.mytown.destinations.AddPostScreenDestination
+import cd.wayupdotdev.mytown.destinations.MainScreenDestination
+import cd.wayupdotdev.mytown.destinations.PostMakeScreenDestination
+import cd.wayupdotdev.mytown.destinations.PostScreenDestination
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import com.ramcosta.composedestinations.spec.Route
