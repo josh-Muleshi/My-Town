@@ -21,10 +21,8 @@ class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, p
         firebaseAuth.currentUser
     }
 
-     suspend fun signInWithGoogle(idToken: String) {
-         //: CustomFirebaseUser {}
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-
+    suspend fun signInWithGoogle(idToken: String) {
+    val credential = GoogleAuthProvider.getCredential(idToken, null)
         try {
             val userFetch = firebaseAuth.signInWithCredential(credential).await().user!!
             val user = User(
@@ -37,33 +35,25 @@ class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, p
             )
             val doc = firestore.document("${FireBaseConstants.users}/${user.uid}")
             doc.set(user).await()
-//            return CustomFirebaseUser(
-//                uid = user.uid,
-//                email = user.email.toString(),
-//                name = user.displayName.toString(),
-//                profileUrl = user.photoUrl.toString(),
-//                isValid = true,
-//                createdAt = Date(System.currentTimeMillis())
-//            )
         } catch (t: Throwable) {
             throw t
         }
     }
 
-     fun getCurrentUser() = callbackFlow {
-        firestore.document("${FireBaseConstants.users}/${currentUser?.uid.toString()}")
-            .addSnapshotListener { value, error ->
-            if (error != null && value == null) {
-                close(error)
-            }
+    fun getCurrentUser() = callbackFlow {
+    firestore.document("${FireBaseConstants.users}/${currentUser?.uid.toString()}")
+        .addSnapshotListener { value, error ->
+        if (error != null && value == null) {
+            close(error)
+        }
 
-            value?.toObject(User::class.java).let { user ->
-                if (!isClosedForSend) {
-                    trySend(user)
-                }
+        value?.toObject(User::class.java).let { user ->
+            if (!isClosedForSend) {
+                trySend(user)
             }
         }
-        awaitClose()
+    }
+    awaitClose()
     }.catch {
         throw it
     }.flowOn(Dispatchers.IO)
