@@ -21,7 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cd.wayupdotdev.mytown.R
+import cd.wayupdotdev.mytown.data.model.User
 import cd.wayupdotdev.mytown.destinations.SettingScreenDestination
+import cd.wayupdotdev.mytown.domain.dto.CustomFirebaseUser
 import cd.wayupdotdev.mytown.presentation.common.AppBarScreen
 import cd.wayupdotdev.mytown.presentation.screen.profile.component.ProfileAppBar
 import com.ramcosta.composedestinations.annotation.Destination

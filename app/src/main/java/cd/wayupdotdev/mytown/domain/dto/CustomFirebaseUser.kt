@@ -1,4 +1,4 @@
-package cd.wayupdotdev.mytown.domain.repository.dto
+package cd.wayupdotdev.mytown.domain.dto
 
 import cd.wayupdotdev.mytown.data.model.User
 import java.util.*

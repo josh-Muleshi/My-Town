@@ -2,8 +2,7 @@ package cd.wayupdotdev.mytown.data.repository
 
 import cd.wayupdotdev.mytown.data.model.User
 import cd.wayupdotdev.mytown.data.utils.FireBaseConstants
-import cd.wayupdotdev.mytown.domain.repository.UserRepo
-import cd.wayupdotdev.mytown.domain.repository.dto.CustomFirebaseUser
+import cd.wayupdotdev.mytown.domain.dto.CustomFirebaseUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,19 +21,30 @@ class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, p
         firebaseAuth.currentUser
     }
 
-     suspend fun signInWithGoogle(idToken: String): CustomFirebaseUser {
+     suspend fun signInWithGoogle(idToken: String) {
+         //: CustomFirebaseUser {}
         val credential = GoogleAuthProvider.getCredential(idToken, null)
 
         try {
-            val user = firebaseAuth.signInWithCredential(credential).await().user!!
-            return CustomFirebaseUser(
-                uid = user.uid,
-                email = user.email.toString(),
-                name = user.displayName.toString(),
-                profileUrl = user.photoUrl.toString(),
+            val userFetch = firebaseAuth.signInWithCredential(credential).await().user!!
+            val user = User(
+                uid = userFetch.uid,
+                email = userFetch.email.toString(),
+                name = userFetch.displayName.toString(),
+                profileUrl = userFetch.photoUrl.toString(),
                 isValid = true,
                 createdAt = Date(System.currentTimeMillis())
             )
+            val doc = firestore.document("${FireBaseConstants.users}/${user.uid}")
+            doc.set(user).await()
+//            return CustomFirebaseUser(
+//                uid = user.uid,
+//                email = user.email.toString(),
+//                name = user.displayName.toString(),
+//                profileUrl = user.photoUrl.toString(),
+//                isValid = true,
+//                createdAt = Date(System.currentTimeMillis())
+//            )
         } catch (t: Throwable) {
             throw t
         }
