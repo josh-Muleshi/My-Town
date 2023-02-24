@@ -2,7 +2,6 @@ package cd.wayupdotdev.mytown.data.repository
 
 import cd.wayupdotdev.mytown.data.model.User
 import cd.wayupdotdev.mytown.data.utils.FireBaseConstants
-import cd.wayupdotdev.mytown.domain.dto.CustomFirebaseUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,7 +21,7 @@ class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, p
     }
 
     suspend fun signInWithGoogle(idToken: String) {
-    val credential = GoogleAuthProvider.getCredential(idToken, null)
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
         try {
             val userFetch = firebaseAuth.signInWithCredential(credential).await().user!!
             val user = User(
