@@ -56,4 +56,8 @@ class UserRepoImpl @Inject constructor(private val firebaseAuth: FirebaseAuth, p
     }.catch {
         throw it
     }.flowOn(Dispatchers.IO)
+
+    fun signOut() {
+        firebaseAuth.signOut()
+    }
 }
