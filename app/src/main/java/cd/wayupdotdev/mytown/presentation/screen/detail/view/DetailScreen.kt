@@ -19,7 +19,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -150,7 +150,7 @@ fun DetailScreenTopSection(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(onClick = backButton ) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back", tint = Color.White)
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "back", tint = Color.White)
             }
             Box(
                 modifier = Modifier

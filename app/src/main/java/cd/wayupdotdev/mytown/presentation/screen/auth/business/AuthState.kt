@@ -1,9 +1,9 @@
-package com.weboxconnexion.houseofchangechurch.ui.screen.auth.business
+package cd.wayupdotdev.mytown.presentation.screen.auth.business
 
 sealed class AuthState {
-    object Uninitialized : AuthState()
-    object Loading : AuthState()
+    data object Uninitialized : AuthState()
+    data object Loading : AuthState()
     data class Error(val errorMessage: String) : AuthState()
-    object Success: AuthState()
+    data object Success: AuthState()
     var isLoading: Boolean = false
 }

@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cd.wayupdotdev.mytown.R
-import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
 import cd.wayupdotdev.mytown.destinations.MainScreenDestination
 import cd.wayupdotdev.mytown.presentation.screen.auth.business.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -34,7 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.weboxconnexion.houseofchangechurch.ui.screen.auth.business.AuthState
+import cd.wayupdotdev.mytown.presentation.screen.auth.business.AuthState
 
 @Destination
 @Composable

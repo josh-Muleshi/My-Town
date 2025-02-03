@@ -30,7 +30,7 @@ fun SettingScreen(navigator: DestinationsNavigator) {
 
     Scaffold(
         topBar = {
-            AppBarScreen(navigator, ScreenName = "Settings")
+            AppBarScreen(navigator, screenName = "Settings")
         }
     ) { contentPadding ->
         Box(modifier = Modifier.padding(contentPadding)) {

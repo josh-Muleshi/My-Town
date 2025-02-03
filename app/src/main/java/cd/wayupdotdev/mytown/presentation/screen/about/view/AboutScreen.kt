@@ -29,7 +29,7 @@ fun AboutScreen(navigator: DestinationsNavigator) {
 
     Scaffold(
         topBar = {
-            AppBarScreen(navigator, ScreenName = "About us")
+            AppBarScreen(navigator, screenName = "About us")
         }
     ) { contentPadding ->
         LazyColumn(

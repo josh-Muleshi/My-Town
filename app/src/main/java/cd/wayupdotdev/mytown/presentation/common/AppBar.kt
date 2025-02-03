@@ -20,7 +20,7 @@ import cd.wayupdotdev.mytown.destinations.HomeScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
-fun AppBarScreen(navigator: DestinationsNavigator, ScreenName: String) {
+fun AppBarScreen(navigator: DestinationsNavigator, screenName: String) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.surface,
         elevation = 0.dp
@@ -39,7 +39,7 @@ fun AppBarScreen(navigator: DestinationsNavigator, ScreenName: String) {
             }
 
             Text(
-                text = ScreenName,
+                text = screenName,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )

@@ -3,12 +3,7 @@ package cd.wayupdotdev.mytown.presentation.screen.auth.business
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cd.wayupdotdev.mytown.data.model.User
 import cd.wayupdotdev.mytown.data.repository.UserRepoImpl
-import cd.wayupdotdev.mytown.domain.dto.CustomFirebaseUser
-import cd.wayupdotdev.mytown.domain.dto.toUser
-import cd.wayupdotdev.mytown.domain.repository.UserRepo
-import com.weboxconnexion.houseofchangechurch.ui.screen.auth.business.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
