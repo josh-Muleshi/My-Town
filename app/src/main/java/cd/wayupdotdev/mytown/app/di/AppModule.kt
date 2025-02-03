@@ -3,9 +3,13 @@ package cd.wayupdotdev.mytown.app.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.camera.core.*
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
+import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.FLASH_MODE_ON
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.preference.PreferenceManager
 import cd.wayupdotdev.mytown.data.repository.CustomCameraRepoImpl
@@ -42,7 +46,6 @@ object AppModule {
     fun provideCameraProvider(application: Application)
             : ProcessCameraProvider {
         return ProcessCameraProvider.getInstance(application).get()
-
     }
 
     @Provides

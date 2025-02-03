@@ -123,7 +123,7 @@ fun AuthScreen(navigator: DestinationsNavigator, viewModel: AuthViewModel = hilt
                 border = BorderStroke(1.dp, color = Color.White),
                 onClick = {
                     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(Constants.Token)
+                        .requestIdToken(Constants.TOKEN)
                         .requestEmail()
                         .build()
                     val googleSignInClient = GoogleSignIn.getClient(context, gso)
